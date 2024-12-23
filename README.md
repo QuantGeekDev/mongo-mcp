@@ -41,6 +41,24 @@ To get started, find your mongodb connection url and add this configuration to y
 }
 ```
 
+### Database Selection
+
+The database name can be specified in the MongoDB connection URL path:
+
+```
+# Format
+mongodb://username:password@host:port/database_name?authSource=admin
+
+# Examples
+mongodb://root:example@localhost:27017/myapp?authSource=admin    # Uses "myapp" database
+mongodb://root:example@localhost:27017    # Uses default "test" database
+```
+
+Note: 
+
+- If no database name is provided in the URL path, the "test" database will be used by default. 
+- MongoDB will automatically create the database if it doesn't exist.
+
 ### Prerequisites
 
 - Node.js 18+
