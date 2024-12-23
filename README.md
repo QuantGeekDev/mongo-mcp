@@ -1,5 +1,6 @@
 # 🗄️ MongoDB MCP Server for LLMS
 
+[![smithery badge](https://smithery.ai/badge/mongo-mcp)](https://smithery.ai/server/mongo-mcp)
 [![Node.js 18+](https://img.shields.io/badge/node-18%2B-blue.svg)](https://nodejs.org/en/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -39,6 +40,14 @@ To get started, find your mongodb connection url and add this configuration to y
     }
   }
 }
+```
+
+### Installing via Smithery
+
+To install MongoDB MCP Server for Claude Desktop automatically via [Smithery](https://smithery.ai/server/mongo-mcp):
+
+```bash
+npx -y @smithery/cli install mongo-mcp --client claude
 ```
 
 ### Prerequisites
