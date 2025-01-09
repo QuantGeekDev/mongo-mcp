@@ -1,5 +1,6 @@
 import { db } from "../../mongodb/client.js";
 import { BaseTool, ToolParams } from "../base/tool.js";
+import { ObjectId } from "mongodb";
 
 export interface FindParams extends ToolParams {
   collection: string;
@@ -39,12 +40,49 @@ export class FindTool extends BaseTool<FindParams> {
     required: ["collection"],
   };
 
+  /**
+    * Recursively converts filter fields ending with "Id" or "_id" that match the ObjectId format
+    * (24-character hexadecimal strings) into MongoDB ObjectId instances.
+    *
+    * @param filter - The original MongoDB query filter object.
+    * @returns A new filter object with applicable string fields converted to ObjectId instances.
+   */
+  private convertFilterFields(filter: Record<string, unknown>): Record<string, unknown> {
+    const convertedFilter = { ...filter };
+
+    function convertIfObjectId(obj: Record<string, unknown>) {
+      for (const [key, value] of Object.entries(obj)) {
+        if (
+          (key.endsWith("Id") || key.endsWith("_id")) &&
+          typeof value === "string" &&
+          /^[0-9a-fA-F]{24}$/.test(value)
+        ) {
+          try {
+            obj[key] = new ObjectId(value);
+          } catch (err) {
+            console.error(`Invalid ObjectId for field "${key}": ${value}`);
+          }
+        } else if (value && typeof value === "object") {
+          convertIfObjectId(value as Record<string, unknown>);
+        }
+      }
+    }
+
+    convertIfObjectId(convertedFilter);
+    return convertedFilter;
+  }
+
   async execute(params: FindParams) {
     try {
       const collection = this.validateCollection(params.collection);
+      
+      // Convert applicable fields in the filter to ObjectId
+      let filter = params.filter ? { ...params.filter } : {};
+      filter = this.convertFilterFields(filter);
+
       const results = await db
         .collection(collection)
-        .find(params.filter || {})
+        .find(filter)
         .project(params.projection || {})
         .limit(Math.min(params.limit || 10, 1000))
         .toArray();
