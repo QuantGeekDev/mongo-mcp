@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/quantgeekdev-mongo-mcp-badge.png)](https://mseep.ai/app/quantgeekdev-mongo-mcp)
+
 # 🗄️ MongoDB MCP Server for LLMS
 
 [![Node.js 18+](https://img.shields.io/badge/node-18%2B-blue.svg)](https://nodejs.org/en/)
