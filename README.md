@@ -2,6 +2,8 @@
 
 [![Node.js 18+](https://img.shields.io/badge/node-18%2B-blue.svg)](https://nodejs.org/en/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+[![Trust Score](https://archestra.ai/mcp-catalog/api/badge/quality/QuantGeekDev/mongo-mcp)](https://archestra.ai/mcp-catalog/quantgeekdev__mongo-mcp)
 [![smithery badge](https://smithery.ai/badge/mongo-mcp)](https://smithery.ai/server/mongo-mcp)
 
 A Model Context Protocol (MCP) server that enables LLMs to interact directly with MongoDB databases. Query collections, inspect schemas, and manage data seamlessly through natural language.
